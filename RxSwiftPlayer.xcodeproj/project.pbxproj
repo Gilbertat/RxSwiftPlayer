@@ -18,6 +18,7 @@
 /* Begin PBXFileReference section */
 		1D4C99F6D9C0987AF3068611 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8C4B1281DE9EBB48B9DCAF36 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D298CC101C8B0AA8004A13A7 /* RxSwift.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RxSwift.playground; sourceTree = "<group>"; };
 		D2A596F31C8B0623008D6630 /* RxSwiftPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwiftPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A596F61C8B0623008D6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2A596F81C8B0623008D6630 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 			children = (
 				D2A596FD1C8B0623008D6630 /* Assets.xcassets */,
 				D2A597021C8B0623008D6630 /* Info.plist */,
+				D298CC101C8B0AA8004A13A7 /* RxSwift.playground */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
