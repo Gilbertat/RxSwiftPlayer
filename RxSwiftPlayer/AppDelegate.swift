@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RxSwiftPlayer", size: 19.0)!], forState: .Normal)
     return true
   }
 

@@ -7,17 +7,150 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
-
+  
+  // MARK: - Outlets
+  
+  @IBOutlet weak var resetButton: UIBarButtonItem!
+  @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
+  @IBOutlet weak var textField: UITextField!
+  @IBOutlet weak var textFieldLabel: UILabel!
+  @IBOutlet weak var textView: UITextView!
+  @IBOutlet weak var textViewLabel: UILabel!
+  @IBOutlet weak var button: UIButton!
+  @IBOutlet weak var buttonLabel: UILabel!
+  @IBOutlet weak var segmentedControl: UISegmentedControl!
+  @IBOutlet weak var segmentedControlLabel: UILabel!
+  @IBOutlet weak var slider: UISlider!
+  @IBOutlet weak var sliderLabel: UILabel!
+  @IBOutlet weak var progressView: UIProgressView!
+  @IBOutlet weak var `switch`: UISwitch!
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet weak var stepper: UIStepper!
+  @IBOutlet weak var stepperLabel: UILabel!
+  @IBOutlet weak var datePicker: UIDatePicker!
+  @IBOutlet weak var datePickerLabel: UILabel!
+  
+  @IBOutlet var valueChangedControls: [AnyObject]!
+  
+  // MARK: - Properties
+  
+  let disposeBag = DisposeBag()
+  var skip = 1
+  
+  lazy var dateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .MediumStyle
+    formatter.timeStyle = .ShortStyle
+    return formatter
+  }()
+  
+  // MARK: - View life cycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    configureTextView()
+    bindUI()
   }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  
+  // MARK: - Helpers
+  
+  func configureTextView() {
+    textView.layer.cornerRadius = 6.0
   }
-
+  
+  func bindUI() {
+    textField.rx_text.asDriver()
+    .drive(textFieldLabel.rx_text)
+    .addDisposableTo(disposeBag)
+    
+    textField.rx_text
+      .asDriver()
+      .driveNext { _ in
+        UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
+    }.addDisposableTo(disposeBag)
+    
+    textView.rx_text.asDriver()
+      .driveNext { [unowned self] in
+        self.textViewLabel.text = "Character count: \($0.characters.count)"
+        UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
+    }.addDisposableTo(disposeBag)
+    
+    button.rx_tap.asDriver()
+      .driveNext { [unowned self] _ in
+        self.buttonLabel.text! += "Tapped. "
+        self.view.endEditing(true)
+        UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
+    }.addDisposableTo(disposeBag)
+    
+    segmentedControl.rx_value.asDriver()
+      .skip(skip)
+      .driveNext { [unowned self] in
+        self.segmentedControlLabel.text = "Selected segment: \($0)"
+        UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
+    }.addDisposableTo(disposeBag)
+    
+    slider.rx_value.asDriver()
+      .driveNext { [unowned self] in
+        self.sliderLabel.text! = "Slider value: \($0)"
+    }.addDisposableTo(disposeBag)
+    
+    slider.rx_value.asDriver()
+      .driveNext { [unowned self] in
+        self.progressView.progress = $0
+    }.addDisposableTo(disposeBag)
+    
+    `switch`.rx_value.asDriver()
+      .map { !$0 }
+      .drive(activityIndicator.rx_hidden)
+      .addDisposableTo(disposeBag)
+    
+    `switch`.rx_value.asDriver()
+      .drive(activityIndicator.rx_animating)
+      .addDisposableTo(disposeBag)
+    
+    stepper.rx_value.asDriver()
+      .driveNext { [unowned self] in
+        self.stepperLabel.text = String(Int($0))
+      }.addDisposableTo(disposeBag)
+    
+    tapGestureRecognizer.rx_event.asDriver()
+      .driveNext { [unowned self] _ in
+        self.view.endEditing(true)
+      }.addDisposableTo(disposeBag)
+    
+    datePicker.rx_date.asDriver()
+      .driveNext { [unowned self] in
+        self.datePickerLabel.text = "Selected date: \(self.dateFormatter.stringFromDate($0))"
+      }.addDisposableTo(disposeBag)
+    
+    resetButton.rx_tap.asDriver()
+      .driveNext { [unowned self] _ in
+        self.textField.rx_text.onNext("")
+        
+        self.textView.rx_text.onNext("Text view")
+        
+        self.buttonLabel.rx_text.onNext("")
+        
+        self.skip = 0
+        self.segmentedControl.rx_value.onNext(-1)
+        self.segmentedControlLabel.text = ""
+        
+        self.slider.rx_value.onNext(0.5)
+        
+        self.`switch`.rx_value.onNext(false)
+        
+        self.stepper.rx_value.onNext(0.0)
+        
+        self.datePicker.setDate(NSDate(), animated: true)
+        
+        self.valueChangedControls.forEach { $0.sendActionsForControlEvents(.ValueChanged) }
+        self.view.endEditing(true)
+        UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
+      }.addDisposableTo(disposeBag)
+  }
+  
 }

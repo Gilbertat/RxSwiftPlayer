@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		12B4D2993E7E607E96FB965A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C4B1281DE9EBB48B9DCAF36 /* Pods.framework */; };
+		D287B7B91C8B1CCB00B981CB /* RxSwiftPlayer.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D287B7B81C8B1CCB00B981CB /* RxSwiftPlayer.ttf */; };
 		D2A596F71C8B0623008D6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A596F61C8B0623008D6630 /* AppDelegate.swift */; };
 		D2A596F91C8B0623008D6630 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A596F81C8B0623008D6630 /* ViewController.swift */; };
 		D2A596FC1C8B0623008D6630 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A596FA1C8B0623008D6630 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		1D4C99F6D9C0987AF3068611 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8C4B1281DE9EBB48B9DCAF36 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D287B7B81C8B1CCB00B981CB /* RxSwiftPlayer.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RxSwiftPlayer.ttf; sourceTree = "<group>"; };
 		D298CC101C8B0AA8004A13A7 /* RxSwift.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RxSwift.playground; sourceTree = "<group>"; };
 		D2A596F31C8B0623008D6630 /* RxSwiftPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwiftPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A596F61C8B0623008D6630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				D2A596FD1C8B0623008D6630 /* Assets.xcassets */,
 				D2A597021C8B0623008D6630 /* Info.plist */,
 				D298CC101C8B0AA8004A13A7 /* RxSwift.playground */,
+				D287B7B81C8B1CCB00B981CB /* RxSwiftPlayer.ttf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2A597011C8B0623008D6630 /* LaunchScreen.storyboard in Resources */,
+				D287B7B91C8B1CCB00B981CB /* RxSwiftPlayer.ttf in Resources */,
 				D2A596FE1C8B0623008D6630 /* Assets.xcassets in Resources */,
 				D2A596FC1C8B0623008D6630 /* Main.storyboard in Resources */,
 			);
