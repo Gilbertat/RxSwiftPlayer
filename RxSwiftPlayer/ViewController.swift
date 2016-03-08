@@ -74,8 +74,9 @@ class ViewController: UIViewController {
     }.addDisposableTo(disposeBag)
     
     textView.rx_text.asDriver()
+      .map { $0.characters.count }
       .driveNext { [unowned self] in
-        self.textViewLabel.text = "Character count: \($0.characters.count)"
+        self.textViewLabel.text = "Character count: \($0)"
         UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
     }.addDisposableTo(disposeBag)
     
@@ -113,8 +114,9 @@ class ViewController: UIViewController {
       .addDisposableTo(disposeBag)
     
     stepper.rx_value.asDriver()
+      .map { String(Int($0)) }
       .driveNext { [unowned self] in
-        self.stepperLabel.text = String(Int($0))
+        self.stepperLabel.text = $0
       }.addDisposableTo(disposeBag)
     
     tapGestureRecognizer.rx_event.asDriver()
@@ -123,8 +125,9 @@ class ViewController: UIViewController {
       }.addDisposableTo(disposeBag)
     
     datePicker.rx_date.asDriver()
+      .map { self.dateFormatter.stringFromDate($0) }
       .driveNext { [unowned self] in
-        self.datePickerLabel.text = "Selected date: \(self.dateFormatter.stringFromDate($0))"
+        self.datePickerLabel.text = "Selected date: \($0)"
       }.addDisposableTo(disposeBag)
     
     resetButton.rx_tap.asDriver()
