@@ -15,7 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
-    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: "RxSwiftPlayer", size: 19.0)!], forState: .Normal)
+    
+    guard let defaultFont14 = UIFont(name: "Avenir-Light", size: 14),
+      defaultFont17 = UIFont(name: "Avenir-Light", size: 17),
+      rxSwiftPlayerFont = UIFont(name: "RxSwiftPlayer", size: 19.0)
+    else { return true }
+    UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName: defaultFont17]
+    UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: rxSwiftPlayerFont], forState: .Normal)
+    UITextField.appearance().font = defaultFont14
+    UITextView.appearance().font = defaultFont14
+    UISegmentedControl.appearance().setTitleTextAttributes([NSFontAttributeName: defaultFont17], forState: .Normal)
+    
     return true
   }
 
