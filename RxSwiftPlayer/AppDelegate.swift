@@ -26,6 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UITextView.appearance().font = defaultFont14
     UISegmentedControl.appearance().setTitleTextAttributes([NSFontAttributeName: defaultFont17], forState: .Normal)
     
+    let splitViewController = window!.rootViewController as! UISplitViewController
+    let navigationItem = (splitViewController.viewControllers.last as! UINavigationController).topViewController!.navigationItem
+    navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+    navigationItem.leftItemsSupplementBackButton = true
+    
+    if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+      splitViewController.preferredDisplayMode = .AllVisible
+    }
+    
     return true
   }
 
