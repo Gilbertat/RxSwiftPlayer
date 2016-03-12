@@ -10,6 +10,7 @@
 		12B4D2993E7E607E96FB965A /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C4B1281DE9EBB48B9DCAF36 /* Pods.framework */; };
 		D204310D1C8F219A0049B8E6 /* TwoWayBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D204310C1C8F219A0049B8E6 /* TwoWayBindingViewController.swift */; };
 		D22F79E41C92E9FD0062E37B /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22F79E31C92E9FD0062E37B /* TableViewController.swift */; };
+		D271DABF1C945B0400BBC44C /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = D271DABE1C945B0400BBC44C /* Button.swift */; };
 		D287B7B91C8B1CCB00B981CB /* RxSwiftPlayer.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D287B7B81C8B1CCB00B981CB /* RxSwiftPlayer.ttf */; };
 		D2A596F71C8B0623008D6630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A596F61C8B0623008D6630 /* AppDelegate.swift */; };
 		D2A596F91C8B0623008D6630 /* BasicControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A596F81C8B0623008D6630 /* BasicControlsViewController.swift */; };
@@ -23,6 +24,7 @@
 		8C4B1281DE9EBB48B9DCAF36 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D204310C1C8F219A0049B8E6 /* TwoWayBindingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoWayBindingViewController.swift; sourceTree = "<group>"; };
 		D22F79E31C92E9FD0062E37B /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		D271DABE1C945B0400BBC44C /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		D287B7B81C8B1CCB00B981CB /* RxSwiftPlayer.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = RxSwiftPlayer.ttf; sourceTree = "<group>"; };
 		D298CC101C8B0AA8004A13A7 /* RxSwift.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RxSwift.playground; sourceTree = "<group>"; };
 		D2A596F31C8B0623008D6630 /* RxSwiftPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxSwiftPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +121,7 @@
 		D2A5970A1C8B0803008D6630 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D271DABE1C945B0400BBC44C /* Button.swift */,
 				D2A596FF1C8B0623008D6630 /* LaunchScreen.storyboard */,
 				D2A596FA1C8B0623008D6630 /* Main.storyboard */,
 			);
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D271DABF1C945B0400BBC44C /* Button.swift in Sources */,
 				D2A596F91C8B0623008D6630 /* BasicControlsViewController.swift in Sources */,
 				D2A596F71C8B0623008D6630 /* AppDelegate.swift in Sources */,
 				D204310D1C8F219A0049B8E6 /* TwoWayBindingViewController.swift in Sources */,

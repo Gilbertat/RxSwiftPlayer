@@ -57,6 +57,7 @@ class TwoWayBindingViewController: UIViewController {
     super.viewDidLoad()
     navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
     navigationItem.leftItemsSupplementBackButton = true
+    button.layer.cornerRadius = 5.0
     
     leftTextField.rx_text <-> string$
     rightTextField.rx_text <-> string$

@@ -45,7 +45,6 @@
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Text view" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AIn-op-sQR">
                                                         <rect key="frame" x="0.0" y="0.0" width="276" height="60"/>
-                                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="cYc-Rv-0w1"/>
                                                         </constraints>
@@ -62,7 +61,7 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZe-eg-waj">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZe-eg-waj" customClass="Button" customModule="RxSwiftPlayer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="80" width="560" height="30"/>
                                         <state key="normal" title="Tap Me"/>
                                     </button>
@@ -195,7 +194,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bUi-iv-HHv">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bUi-iv-HHv">
                                 <rect key="frame" x="96" y="72" width="408" height="68"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9ye-Io-pzR">
@@ -204,7 +203,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="eJ0-as-vXH">
                                                 <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="lCg-4k-T6m"/>
+                                                    <constraint firstAttribute="width" priority="750" constant="200" id="lCg-4k-T6m"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -219,9 +218,9 @@
                                             <constraint firstItem="bXr-bK-oT2" firstAttribute="width" secondItem="eJ0-as-vXH" secondAttribute="width" id="JdZ-Ap-Yy6"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bw2-ph-JiJ">
-                                        <rect key="frame" x="181" y="38" width="46" height="30"/>
-                                        <state key="normal" title="Button"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bw2-ph-JiJ" customClass="Button" customModule="RxSwiftPlayer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="38" width="408" height="30"/>
+                                        <state key="normal" title="Tap Me"/>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -229,6 +228,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bUi-iv-HHv" firstAttribute="centerX" secondItem="jqJ-fb-D7n" secondAttribute="centerX" id="QEd-NJ-k0p"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="bUi-iv-HHv" secondAttribute="trailing" id="Uu3-VN-Nef"/>
+                            <constraint firstItem="bUi-iv-HHv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jqJ-fb-D7n" secondAttribute="leadingMargin" id="eGd-Ss-fqM"/>
                             <constraint firstItem="bUi-iv-HHv" firstAttribute="top" secondItem="YI8-gp-tHz" secondAttribute="bottom" constant="8" symbolic="YES" id="vPv-rd-Eug"/>
                         </constraints>
                     </view>
@@ -296,12 +297,14 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hj-Ru-ZMY">
                                                     <rect key="frame" x="15" y="0.0" width="570" height="63.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="19"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -328,7 +331,6 @@
         <!--View Controller-->
         <scene sceneID="iOP-n6-RbJ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lxD-xN-MVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="QWs-Ij-Mjv" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="daA-Wk-l4Z"/>
@@ -341,6 +343,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="OC5-ow-NX6"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lxD-xN-MVF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1408" y="1585"/>
         </scene>
