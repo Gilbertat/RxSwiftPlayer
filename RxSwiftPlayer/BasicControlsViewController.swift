@@ -14,7 +14,7 @@ class BasicControlsViewController: UIViewController {
   
   // MARK: - Outlets
   
-  @IBOutlet weak var resetButton: UIBarButtonItem!
+  @IBOutlet weak var resetBarButtonItem: UIBarButtonItem!
   @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var textFieldLabel: UILabel!
@@ -128,7 +128,7 @@ class BasicControlsViewController: UIViewController {
         self?.datePickerLabel.text = "Selected date: \($0)"
       }.addDisposableTo(disposeBag)
     
-    resetButton.rx_tap.asDriver()
+    resetBarButtonItem.rx_tap.asDriver()
       .driveNext { [weak self] _ in
         self?.textField.rx_text.onNext("")
         

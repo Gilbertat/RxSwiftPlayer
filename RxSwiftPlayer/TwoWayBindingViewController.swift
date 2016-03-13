@@ -41,7 +41,7 @@ class TwoWayBindingViewController: UIViewController {
   
   // MARK: - Outlets
   
-  @IBOutlet weak var resetButton: UIBarButtonItem!
+  @IBOutlet weak var resetBarButtonItem: UIBarButtonItem!
   @IBOutlet weak var leftTextField: UITextField!
   @IBOutlet weak var rightTextField: UITextField!
   @IBOutlet weak var button: UIButton!
@@ -81,7 +81,7 @@ class TwoWayBindingViewController: UIViewController {
       self?.string$.value = String(NSDate())
     }.addDisposableTo(disposeBag)
     
-    resetButton.rx_tap.asDriver()
+    resetBarButtonItem.rx_tap.asDriver()
       .driveNext { [weak self] _ in
         self?.string$.value = "Hello"
       }.addDisposableTo(disposeBag)

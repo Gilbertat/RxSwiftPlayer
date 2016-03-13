@@ -157,7 +157,7 @@
                         <outlet property="datePicker" destination="DsI-jN-OsC" id="zMa-Ip-v5p"/>
                         <outlet property="datePickerLabel" destination="ucR-Ft-V3P" id="jLD-Mw-6Id"/>
                         <outlet property="progressView" destination="szX-vl-Zax" id="vFn-eZ-Nbl"/>
-                        <outlet property="resetButton" destination="Ia9-Vd-TZh" id="6ep-Az-4nG"/>
+                        <outlet property="resetBarButtonItem" destination="Ia9-Vd-TZh" id="Rt5-7e-zQw"/>
                         <outlet property="segmentedControl" destination="amW-Ck-TgN" id="eCw-1z-M5r"/>
                         <outlet property="segmentedControlLabel" destination="EqT-Uf-RAV" id="KLn-wc-soS"/>
                         <outlet property="slider" destination="de2-JR-ENG" id="jt2-yK-qrz"/>
@@ -239,7 +239,7 @@
                     <connections>
                         <outlet property="button" destination="bw2-ph-JiJ" id="1iY-77-IAb"/>
                         <outlet property="leftTextField" destination="eJ0-as-vXH" id="XHL-sF-ynd"/>
-                        <outlet property="resetButton" destination="WAs-vW-amU" id="aQu-RG-MmW"/>
+                        <outlet property="resetBarButtonItem" destination="WAs-vW-amU" id="LbY-Dw-KrA"/>
                         <outlet property="rightTextField" destination="bXr-bK-oT2" id="bns-kK-Iha"/>
                     </connections>
                 </viewController>
@@ -265,10 +265,10 @@
             </objects>
             <point key="canvasLocation" x="596" y="2246"/>
         </scene>
-        <!--RxSwift Player-->
+        <!--Select Example-->
         <scene sceneID="TjR-jG-TV2">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ObY-M7-bu6" customClass="TableViewController" customModule="RxSwiftPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ObY-M7-bu6" customClass="ExamplesViewController" customModule="RxSwiftPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TPm-vJ-CCV"/>
                         <viewControllerLayoutGuide type="bottom" id="SCu-1b-7bc"/>
@@ -287,15 +287,15 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="4Hj-Ru-ZMY" style="IBUITableViewCellStyleDefault" id="gCX-xi-5io">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="4Hj-Ru-ZMY" style="IBUITableViewCellStyleDefault" id="gCX-xi-5io">
                                         <rect key="frame" x="0.0" y="28" width="600" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gCX-xi-5io" id="Dze-9E-0dN">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="63.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hj-Ru-ZMY">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="63.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="550" height="63.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="19"/>
@@ -317,11 +317,13 @@
                             <constraint firstAttribute="trailing" secondItem="I7J-fo-hh5" secondAttribute="trailing" id="pWp-85-Zqc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="RxSwift Player" id="B1A-Df-z1y"/>
+                    <navigationItem key="navigationItem" title="Select Example" id="B1A-Df-z1y"/>
                     <connections>
                         <outlet property="tableView" destination="I7J-fo-hh5" id="sdf-Ha-3k8"/>
                         <segue destination="erc-kj-hVB" kind="showDetail" identifier="BasicControlsViewController" id="i6K-Dt-EVf"/>
                         <segue destination="gQF-cY-ObM" kind="showDetail" identifier="TwoWayBindingViewController" id="Q3a-Ar-TYJ"/>
+                        <segue destination="IZ0-iv-shu" kind="show" identifier="SectionedTableViewReloadViewController" id="ONp-fh-iW5"/>
+                        <segue destination="HB5-ZM-let" kind="show" identifier="SectionedTableViewAnimatedViewController" id="pIy-Ua-WLv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kJg-0G-bhy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -411,6 +413,133 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mOg-sn-See" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="596" y="1585"/>
+        </scene>
+        <!--Animated Table View-->
+        <scene sceneID="o4N-KZ-W9a">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="HB5-ZM-let" customClass="SectionedTableViewAnimatedViewController" customModule="RxSwiftPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yaM-sE-3Qn"/>
+                        <viewControllerLayoutGuide type="bottom" id="WH7-NX-MUS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4C7-Gf-dhK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WCz-MB-OzT">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="xsr-kF-EQW">
+                                    <rect key="frame" x="0.0" y="92" width="600" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="2Dm-We-IWc" style="IBUITableViewCellStyleDefault" id="AOB-wc-J6x">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AOB-wc-J6x" id="wSB-WG-W2E">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="63.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Dm-We-IWc">
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="63.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="19"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="WCz-MB-OzT" secondAttribute="bottom" id="a4U-la-5KU"/>
+                            <constraint firstItem="WCz-MB-OzT" firstAttribute="top" secondItem="yaM-sE-3Qn" secondAttribute="bottom" id="fKQ-Ch-Oi6"/>
+                            <constraint firstItem="WCz-MB-OzT" firstAttribute="leading" secondItem="4C7-Gf-dhK" secondAttribute="leading" id="r4r-Rl-Hk6"/>
+                            <constraint firstAttribute="trailing" secondItem="WCz-MB-OzT" secondAttribute="trailing" id="sZ3-6j-IyB"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Animated Table View" id="zFW-2d-A8R">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Tsg-aV-tmU"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="addBarButtonItem" destination="Tsg-aV-tmU" id="dBR-f5-ly1"/>
+                        <outlet property="tableView" destination="WCz-MB-OzT" id="hbu-fA-fmt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gzg-mj-sQf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2220" y="1255"/>
+        </scene>
+        <!--Reload Table View-->
+        <scene sceneID="2kn-ye-tgZ">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="IZ0-iv-shu" customClass="SectionedTableViewReloadViewController" customModule="RxSwiftPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hgw-6o-m4F"/>
+                        <viewControllerLayoutGuide type="bottom" id="vDd-iL-qVg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E4N-sd-V3f">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="64" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ble-vd-RUp">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="7TD-Ra-1KX">
+                                    <rect key="frame" x="0.0" y="92" width="600" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="luI-os-VJb" style="IBUITableViewCellStyleDefault" id="eB0-F4-gCu">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eB0-F4-gCu" id="GON-tu-LLl">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="63.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="luI-os-VJb">
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="63.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="19"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="8" right="8"/>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ble-vd-RUp" firstAttribute="top" secondItem="Hgw-6o-m4F" secondAttribute="bottom" id="47R-eq-iwk"/>
+                            <constraint firstAttribute="trailing" secondItem="ble-vd-RUp" secondAttribute="trailing" id="4XU-bL-hRY"/>
+                            <constraint firstAttribute="bottom" secondItem="ble-vd-RUp" secondAttribute="bottom" id="KLi-sE-uRK"/>
+                            <constraint firstItem="ble-vd-RUp" firstAttribute="leading" secondItem="E4N-sd-V3f" secondAttribute="leading" id="Tmy-Mf-yNc"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Reload Table View" id="JTO-74-liM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="v5D-s0-KwF"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addBarButtonItem" destination="v5D-s0-KwF" id="gyJ-QB-cHq"/>
+                        <outlet property="tableView" destination="ble-vd-RUp" id="BEX-4R-mhM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ptw-SX-9N0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2220" y="594"/>
         </scene>
     </scenes>
 </document>
