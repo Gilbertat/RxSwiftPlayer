@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E61b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="C6s-70-s9h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="C6s-70-s9h">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -43,7 +44,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0QH-gM-dUA">
                                                 <rect key="frame" x="284" y="0.0" width="276" height="68"/>
                                                 <subviews>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Text view" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AIn-op-sQR">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Text view" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AIn-op-sQR" customClass="TextView" customModule="RxSwiftPlayer" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="276" height="60"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="60" id="cYc-Rv-0w1"/>
@@ -224,12 +225,25 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkU-wv-bS5">
+                                <rect key="frame" x="96" y="148" width="408" height="408"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BkU-wv-bS5" secondAttribute="height" priority="750" id="ftB-qu-ati"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="HIS-vc-OVr" kind="embed" identifier="ContainedTextViewViewController" id="7KH-s5-2Fm"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="BkU-wv-bS5" firstAttribute="width" secondItem="bUi-iv-HHv" secondAttribute="width" id="7lH-cW-UbL"/>
                             <constraint firstItem="bUi-iv-HHv" firstAttribute="centerX" secondItem="jqJ-fb-D7n" secondAttribute="centerX" id="QEd-NJ-k0p"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="bUi-iv-HHv" secondAttribute="trailing" id="Uu3-VN-Nef"/>
                             <constraint firstItem="bUi-iv-HHv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jqJ-fb-D7n" secondAttribute="leadingMargin" id="eGd-Ss-fqM"/>
+                            <constraint firstItem="BkU-wv-bS5" firstAttribute="top" secondItem="bUi-iv-HHv" secondAttribute="bottom" constant="8" symbolic="YES" id="fsz-gv-k4S"/>
+                            <constraint firstItem="BkU-wv-bS5" firstAttribute="centerX" secondItem="jqJ-fb-D7n" secondAttribute="centerX" id="iTC-GS-lyl"/>
+                            <constraint firstItem="mDL-PR-Nfq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="BkU-wv-bS5" secondAttribute="bottom" constant="8" symbolic="YES" id="qKK-Xm-wIR"/>
                             <constraint firstItem="bUi-iv-HHv" firstAttribute="top" secondItem="YI8-gp-tHz" secondAttribute="bottom" constant="8" symbolic="YES" id="vPv-rd-Eug"/>
                         </constraints>
                     </view>
@@ -238,9 +252,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="button" destination="bw2-ph-JiJ" id="1iY-77-IAb"/>
+                        <outlet property="containerView" destination="BkU-wv-bS5" id="8Oz-RD-3S2"/>
                         <outlet property="leftTextField" destination="eJ0-as-vXH" id="XHL-sF-ynd"/>
                         <outlet property="resetBarButtonItem" destination="WAs-vW-amU" id="LbY-Dw-KrA"/>
                         <outlet property="rightTextField" destination="bXr-bK-oT2" id="bns-kK-Iha"/>
+                        <segue destination="6LK-9t-Usu" kind="presentation" identifier="PresentedTextViewViewController" id="c5i-zU-f8e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B2g-uS-bjm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -540,6 +556,125 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ptw-SX-9N0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2220" y="594"/>
+        </scene>
+        <!--Contained Text View View Controller-->
+        <scene sceneID="mdh-2k-ji7">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="PkK-GB-7sx" customClass="ContainedTextViewViewController" customModule="RxSwiftPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wwp-bA-S6f"/>
+                        <viewControllerLayoutGuide type="bottom" id="zM1-qa-W0w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6gA-bT-T8h">
+                        <rect key="frame" x="0.0" y="44" width="408" height="364"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FRB-xP-i8X" customClass="TextView" customModule="RxSwiftPlayer" customModuleProvider="target">
+                                <rect key="frame" x="20" y="20" width="368" height="324"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="FRB-xP-i8X" firstAttribute="top" secondItem="6gA-bT-T8h" secondAttribute="top" constant="20" symbolic="YES" id="WHQ-lb-HuP"/>
+                            <constraint firstAttribute="trailing" secondItem="FRB-xP-i8X" secondAttribute="trailing" constant="20" symbolic="YES" id="gDu-cP-nwW"/>
+                            <constraint firstItem="FRB-xP-i8X" firstAttribute="leading" secondItem="6gA-bT-T8h" secondAttribute="leading" constant="20" symbolic="YES" id="irT-Fh-jB9"/>
+                            <constraint firstAttribute="bottom" secondItem="FRB-xP-i8X" secondAttribute="bottom" constant="20" symbolic="YES" id="tVu-YA-Zj5"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="q7F-OZ-Kte">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Cfe-Oa-5Kw"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="expandBarButtonItem" destination="Cfe-Oa-5Kw" id="wTO-K1-4e5"/>
+                        <outlet property="textView" destination="FRB-xP-i8X" id="slJ-1u-aYA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sBf-jr-WAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2744" y="2811"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="c2A-x7-sZZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HIS-vc-OVr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zhx-3u-J80">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PkK-GB-7sx" kind="relationship" relationship="rootViewController" id="blD-oc-XVf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pQk-T4-xGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2124" y="2811"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mY2-3T-H2I">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6LK-9t-Usu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cTd-bO-FGU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZC8-8w-7Ax" kind="relationship" relationship="rootViewController" id="Gyl-0u-sLu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pkk-J5-tKD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2220" y="3389"/>
+        </scene>
+        <!--Presented Text View View Controller-->
+        <scene sceneID="k3F-Jg-p5C">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="ZC8-8w-7Ax" customClass="PresentedTextViewViewController" customModule="RxSwiftPlayer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7Ec-tH-Lks"/>
+                        <viewControllerLayoutGuide type="bottom" id="QI7-wJ-E9y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hKQ-CH-oLu">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gEH-Ys-GUW" customClass="TextView" customModule="RxSwiftPlayer" customModuleProvider="target">
+                                <rect key="frame" x="20" y="20" width="560" height="496"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gEH-Ys-GUW" firstAttribute="top" secondItem="hKQ-CH-oLu" secondAttribute="top" constant="20" symbolic="YES" id="Akd-Jk-tAl"/>
+                            <constraint firstAttribute="trailing" secondItem="gEH-Ys-GUW" secondAttribute="trailing" constant="20" symbolic="YES" id="S2F-uu-BgO"/>
+                            <constraint firstAttribute="bottom" secondItem="gEH-Ys-GUW" secondAttribute="bottom" constant="20" symbolic="YES" id="igC-uG-SxR"/>
+                            <constraint firstItem="gEH-Ys-GUW" firstAttribute="leading" secondItem="hKQ-CH-oLu" secondAttribute="leading" constant="20" symbolic="YES" id="oac-yL-K5P"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="ORb-te-uD8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="ARg-Hm-bcU">
+                            <connections>
+                                <segue destination="qhX-5y-jL7" kind="unwind" unwindAction="unwindToTwoWayBindingViewController:" id="ZJb-h9-LsI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textView" destination="gEH-Ys-GUW" id="YrX-bJ-UYf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yra-lN-NVn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="qhX-5y-jL7" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3032" y="3389"/>
         </scene>
     </scenes>
 </document>

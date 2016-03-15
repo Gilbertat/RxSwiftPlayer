@@ -37,6 +37,19 @@ func <-><T: Comparable>(left: Variable<T>, right: Variable<T>) -> Disposable {
   return StableCompositeDisposable.create(leftDrivesRight, leftObservesRight)
 }
 
+class TwoWayBindingViewControllerViewModel {
+  
+  var textFieldText$ = Variable<String>("Hello")
+  var textViewText$ = Variable<String>("Lorem ipsum dolor...")
+  
+}
+
+protocol HasTwoWayBindingViewControllerViewModel: class {
+  
+  var viewModel: TwoWayBindingViewControllerViewModel! { get set }
+  
+}
+
 class TwoWayBindingViewController: UIViewController {
   
   // MARK: - Outlets
@@ -45,46 +58,58 @@ class TwoWayBindingViewController: UIViewController {
   @IBOutlet weak var leftTextField: UITextField!
   @IBOutlet weak var rightTextField: UITextField!
   @IBOutlet weak var button: UIButton!
+  @IBOutlet weak var containerView: UIView!
   
   // MARK: - Properties
   
-  let string$ = Variable<String>("Hello")
+  let viewModel = TwoWayBindingViewControllerViewModel()
   let disposeBag = DisposeBag()
   
   // MARK: - View life cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    configure()
+    bindViewModel()
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    guard let  controller = (segue.destinationViewController as? UINavigationController)?.topViewController as? HasTwoWayBindingViewControllerViewModel else { return }
+    controller.viewModel = viewModel
+  }
+  
+  // MARK: - Actions
+  
+  @IBAction func unwindToTwoWayBindingViewController(segue: UIStoryboardSegue) { }
+  
+  // MARK: - Helpers
+  
+  func configure() {
     navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
     navigationItem.leftItemsSupplementBackButton = true
+    
     button.layer.cornerRadius = 5.0
     
-    leftTextField.rx_text <-> string$
-    rightTextField.rx_text <-> string$
-    
-    let string2$ = Variable<String>("")
-    let string3$ = Variable<String>("")
-    
-    string$ <-> string2$
-    string$ <-> string3$
-    
-    string2$.asObservable()
-      .subscribeNext { print("string2$", $0) }
-      .addDisposableTo(disposeBag)
-    
-    string3$.asObservable()
-      .subscribeNext { print("string3$", $0) }
-      .addDisposableTo(disposeBag)
+    containerView.layer.masksToBounds = true
+    containerView.layer.cornerRadius = 5.0
+    containerView.layer.borderWidth = 0.5
+    containerView.layer.borderColor = UIColor(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1.0).CGColor
+  }
+  
+  func bindViewModel() {
+    (leftTextField.rx_text <-> viewModel.textFieldText$).addDisposableTo(disposeBag)
+    (rightTextField.rx_text <-> viewModel.textFieldText$).addDisposableTo(disposeBag)
     
     button.rx_tap.asDriver()
-    .driveNext { [weak self] in
-      self?.string$.value = String(NSDate())
-    }.addDisposableTo(disposeBag)
+      .driveNext { [weak self] in
+        self?.viewModel.textFieldText$.value = String(NSDate())
+      }.addDisposableTo(disposeBag)
     
     resetBarButtonItem.rx_tap.asDriver()
       .driveNext { [weak self] _ in
-        self?.string$.value = "Hello"
+        self?.viewModel.textFieldText$.value = "Hello"
+        self?.viewModel.textViewText$.value = "Lorem ipsum dolor..."
       }.addDisposableTo(disposeBag)
   }
-    
+  
 }

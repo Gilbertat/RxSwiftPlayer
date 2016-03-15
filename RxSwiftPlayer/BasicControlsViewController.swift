@@ -56,9 +56,6 @@ class BasicControlsViewController: UIViewController {
     navigationItem.leftItemsSupplementBackButton = true
     
     button.layer.cornerRadius = 5.0
-    textView.layer.cornerRadius = 5.0
-    textView.layer.borderWidth = 0.5
-    textView.layer.borderColor = UIColor(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1.0).CGColor
     
     textField.rx_text.asDriver()
       .drive(textFieldLabel.rx_text)
@@ -66,8 +63,8 @@ class BasicControlsViewController: UIViewController {
     
     textField.rx_text
       .asDriver()
-      .driveNext { _ in
-        UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
+      .driveNext { [weak self] _ in
+        UIView.animateWithDuration(0.3) { self?.view.layoutIfNeeded() }
       }.addDisposableTo(disposeBag)
     
     textView.rx_text.asDriver()

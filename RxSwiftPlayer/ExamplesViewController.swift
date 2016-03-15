@@ -44,11 +44,17 @@ class ExamplesViewController: UIViewController {
       }.addDisposableTo(disposeBag)
     
     tableView.rx_modelSelected(DataSource)
-      .distinctUntilChanged()
+//      .distinctUntilChanged()
       .map { String($0) }
       .subscribeNext { [weak self] in
         self?.performSegueWithIdentifier($0, sender: nil)
       }.addDisposableTo(disposeBag)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
+    tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
   }
   
 }
