@@ -30,6 +30,7 @@ class ExamplesViewController: UIViewController {
     
   }
   
+  var collapseDetailViewController = true
   let dataSource$ = Observable.just(DataSource.allValues)
   let disposeBag = DisposeBag()
   
@@ -37,7 +38,8 @@ class ExamplesViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: "")
+    
+    splitViewController?.delegate = self
     
     dataSource$.bindTo(tableView.rx_itemsWithCellIdentifier("Cell")) { row, element, cell in
       cell.textLabel?.text = element.rawValue
@@ -48,6 +50,7 @@ class ExamplesViewController: UIViewController {
       .map { String($0) }
       .subscribeNext { [weak self] in
         self?.performSegueWithIdentifier($0, sender: nil)
+        self?.collapseDetailViewController = false
       }.addDisposableTo(disposeBag)
   }
   
@@ -55,6 +58,14 @@ class ExamplesViewController: UIViewController {
     super.viewWillAppear(animated)
     guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
     tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
+  }
+  
+}
+
+extension ExamplesViewController: UISplitViewControllerDelegate {
+  
+  func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+    return collapseDetailViewController
   }
   
 }
