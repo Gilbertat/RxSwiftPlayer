@@ -24,13 +24,15 @@ func <-><T>(property: ControlProperty<T>, variable: Variable<T>) -> Disposable {
 }
 
 func <-><T: Comparable>(left: Variable<T>, right: Variable<T>) -> Disposable {
-  let leftDrivesRight = left.asDriver().driveNext {
-    guard right.value != $0 else { return }
+  let leftDrivesRight = left.asDriver()
+    .distinctUntilChanged()
+    .driveNext {
     right.value = $0
   }
   
-  let leftObservesRight = right.asObservable().bindNext {
-    guard left.value != $0 else { return }
+  let leftObservesRight = right.asObservable()
+    .distinctUntilChanged()
+    .bindNext {
     left.value = $0
   }
   
