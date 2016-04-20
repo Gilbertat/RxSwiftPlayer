@@ -61,8 +61,7 @@ class BasicControlsViewController: UIViewController {
       .drive(textFieldLabel.rx_text)
       .addDisposableTo(disposeBag)
     
-    textField.rx_text
-      .asDriver()
+    textField.rx_text.asDriver()
       .driveNext { [weak self] _ in
         UIView.animateWithDuration(0.3) { self?.view.layoutIfNeeded() }
       }.addDisposableTo(disposeBag)

@@ -49,6 +49,11 @@ class ExamplesViewController: UIViewController {
 //      .distinctUntilChanged()
       .map { String($0) }
       .subscribeNext { [weak self] in
+        
+//        if NSProcessInfo.processInfo().environment["TRACE_RESOURCES"] != nil {
+//          print(RxSwift.resourceCount)
+//        }
+        
         self?.performSegueWithIdentifier($0, sender: nil)
         self?.collapseDetailViewController = false
       }.addDisposableTo(disposeBag)

@@ -69,7 +69,7 @@ class SectionedTableViewAnimatedViewController: UIViewController {
     }
     
     data$.asDriver()
-      .drive(tableView.rx_itemsAnimatedWithDataSource(dataSource))
+      .drive(tableView.rx_itemsWithDataSource(dataSource))
       .addDisposableTo(disposeBag)
     
     dataSource.titleForHeaderInSection = {

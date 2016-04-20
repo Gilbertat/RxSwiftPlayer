@@ -99,8 +99,11 @@ class TwoWayBindingViewController: UIViewController {
   }
   
   func bindViewModel() {
-    (leftTextField.rx_text <-> viewModel.textFieldText$).addDisposableTo(disposeBag)
-    (rightTextField.rx_text <-> viewModel.textFieldText$).addDisposableTo(disposeBag)
+    (leftTextField.rx_text <-> viewModel.textFieldText$)
+      .addDisposableTo(disposeBag)
+    
+    (rightTextField.rx_text <-> viewModel.textFieldText$)
+      .addDisposableTo(disposeBag)
     
     button.rx_tap.asDriver()
       .driveNext { [weak self] in
