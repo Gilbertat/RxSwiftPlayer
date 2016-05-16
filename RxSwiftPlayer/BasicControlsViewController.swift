@@ -126,27 +126,28 @@ class BasicControlsViewController: UIViewController {
     
     resetBarButtonItem.rx_tap.asDriver()
       .driveNext { [weak self] _ in
-        self?.textField.rx_text.onNext("")
+        guard let `self` = self else { return }
+        self.textField.rx_text.onNext("")
         
-        self?.textView.rx_text.onNext("Text view")
+        self.textView.rx_text.onNext("Text view")
         
-        self?.buttonLabel.rx_text.onNext("")
+        self.buttonLabel.rx_text.onNext("")
         
-        self?.skip = 0
-        self?.segmentedControl.rx_value.onNext(-1)
-        self?.segmentedControlLabel.text = ""
+        self.skip = 0
+        self.segmentedControl.rx_value.onNext(-1)
+        self.segmentedControlLabel.text = ""
         
-        self?.slider.rx_value.onNext(0.5)
+        self.slider.rx_value.onNext(0.5)
         
-        self?.`switch`.rx_value.onNext(false)
+        self.`switch`.rx_value.onNext(false)
         
-        self?.stepper.rx_value.onNext(0.0)
+        self.stepper.rx_value.onNext(0.0)
         
-        self?.datePicker.setDate(NSDate(), animated: true)
+        self.datePicker.setDate(NSDate(), animated: true)
         
-        self?.valueChangedControls.forEach { $0.sendActionsForControlEvents(.ValueChanged) }
-        self?.view.endEditing(true)
-        UIView.animateWithDuration(0.3) { self?.view.layoutIfNeeded() }
+        self.valueChangedControls.forEach { $0.sendActionsForControlEvents(.ValueChanged) }
+        self.view.endEditing(true)
+        UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
       }.addDisposableTo(disposeBag)
   }
     
