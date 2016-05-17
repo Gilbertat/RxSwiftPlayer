@@ -41,8 +41,8 @@ func <-><T: Comparable>(left: Variable<T>, right: Variable<T>) -> Disposable {
 
 class TwoWayBindingViewControllerViewModel {
   
-  var textFieldText$ = Variable<String>("Hello")
-  var textViewText$ = Variable<String>("Lorem ipsum dolor...")
+  var textFieldText = Variable<String>("Hello")
+  var textViewText = Variable<String>("Lorem ipsum dolor...")
   
 }
 
@@ -99,21 +99,21 @@ class TwoWayBindingViewController: UIViewController {
   }
   
   func bindViewModel() {
-    (leftTextField.rx_text <-> viewModel.textFieldText$)
+    (leftTextField.rx_text <-> viewModel.textFieldText)
       .addDisposableTo(disposeBag)
     
-    (rightTextField.rx_text <-> viewModel.textFieldText$)
+    (rightTextField.rx_text <-> viewModel.textFieldText)
       .addDisposableTo(disposeBag)
     
     button.rx_tap.asDriver()
       .driveNext { [weak self] in
-        self?.viewModel.textFieldText$.value = String(NSDate())
+        self?.viewModel.textFieldText.value = String(NSDate())
       }.addDisposableTo(disposeBag)
     
     resetBarButtonItem.rx_tap.asDriver()
       .driveNext { [weak self] _ in
-        self?.viewModel.textFieldText$.value = "Hello"
-        self?.viewModel.textViewText$.value = "Lorem ipsum dolor..."
+        self?.viewModel.textFieldText.value = "Hello"
+        self?.viewModel.textViewText.value = "Lorem ipsum dolor..."
       }.addDisposableTo(disposeBag)
   }
   

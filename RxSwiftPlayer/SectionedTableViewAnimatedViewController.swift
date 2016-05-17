@@ -51,7 +51,7 @@ class SectionedTableViewAnimatedViewController: UIViewController {
   
   let dataSource = RxTableViewSectionedAnimatedDataSource<AnimatedSectionModel>()
   
-  let data$ = Variable<[AnimatedSectionModel]>([
+  let data = Variable<[AnimatedSectionModel]>([
     AnimatedSectionModel(title: "Section 1", dataSourceItems: ["Sample Data 1-1", "Sample Data 1-2"])
     ])
   
@@ -68,7 +68,7 @@ class SectionedTableViewAnimatedViewController: UIViewController {
       return cell
     }
     
-    data$.asDriver()
+    data.asDriver()
       .drive(tableView.rx_itemsWithDataSource(dataSource))
       .addDisposableTo(disposeBag)
     
@@ -79,8 +79,8 @@ class SectionedTableViewAnimatedViewController: UIViewController {
     addBarButtonItem.rx_tap.asDriver()
       .driveNext { [weak self] _ in
         guard let strongSelf = self else { return }
-        let index = strongSelf.data$.value.count + 1
-        strongSelf.data$.value += [AnimatedSectionModel(title: "Section \(index)", dataSourceItems: ["Sample Data \(index)-1", "Sample Data \(index)-2"])]
+        let index = strongSelf.data.value.count + 1
+        strongSelf.data.value += [AnimatedSectionModel(title: "Section \(index)", dataSourceItems: ["Sample Data \(index)-1", "Sample Data \(index)-2"])]
       }.addDisposableTo(disposeBag)
   }
   

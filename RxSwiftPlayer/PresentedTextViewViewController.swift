@@ -32,7 +32,7 @@ class PresentedTextViewViewController: UIViewController, HasTwoWayBindingViewCon
   }
   
   func bindViewModel() {
-    (textView.rx_text <-> viewModel.textViewText$).addDisposableTo(disposeBag)
+    (textView.rx_text <-> viewModel.textViewText).addDisposableTo(disposeBag)
   }
   
 }

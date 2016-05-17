@@ -36,7 +36,7 @@ class SectionedTableViewReloadViewController: UIViewController {
   
   let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, ReloadDataSource>>()
   
-  let data$ = Variable<[SectionModel<String, ReloadDataSource>]>([
+  let data = Variable<[SectionModel<String, ReloadDataSource>]>([
     SectionModel(model: "Section 1", items: ReloadDataSource.allValues)
     ])
   
@@ -53,7 +53,7 @@ class SectionedTableViewReloadViewController: UIViewController {
       return cell
     }
     
-    data$.asDriver()
+    data.asDriver()
       .drive(tableView.rx_itemsWithDataSource(dataSource))
       .addDisposableTo(disposeBag)
         
@@ -64,7 +64,7 @@ class SectionedTableViewReloadViewController: UIViewController {
     addBarButtonItem.rx_tap.asDriver()
       .driveNext { [weak self] _ in
         guard let strongSelf = self else { return }
-        strongSelf.data$.value += [SectionModel(model: "Section \(strongSelf.data$.value.count + 1)", items: ReloadDataSource.allValues)]
+        strongSelf.data.value += [SectionModel(model: "Section \(strongSelf.data.value.count + 1)", items: ReloadDataSource.allValues)]
       }.addDisposableTo(disposeBag)
   }
   

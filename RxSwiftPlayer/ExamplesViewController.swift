@@ -31,7 +31,7 @@ class ExamplesViewController: UIViewController {
   }
   
   var collapseDetailViewController = true
-  let dataSource$ = Observable.just(DataSource.allValues)
+  let dataSource = Observable.just(DataSource.allValues)
   let disposeBag = DisposeBag()
   
   // MARK: - View life cycle
@@ -41,7 +41,7 @@ class ExamplesViewController: UIViewController {
     
     splitViewController?.delegate = self
     
-    dataSource$.bindTo(tableView.rx_itemsWithCellIdentifier("Cell")) { row, element, cell in
+    dataSource.bindTo(tableView.rx_itemsWithCellIdentifier("Cell")) { row, element, cell in
       cell.textLabel?.text = element.rawValue
       }.addDisposableTo(disposeBag)
     

@@ -40,7 +40,7 @@ class ContainedTextViewViewController: UIViewController, HasTwoWayBindingViewCon
   }
   
   func bindViewModel() {
-    textView.rx_text <-> viewModel.textViewText$
+    textView.rx_text <-> viewModel.textViewText
   }
   
 }
