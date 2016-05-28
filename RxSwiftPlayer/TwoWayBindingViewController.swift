@@ -12,31 +12,28 @@ import RxCocoa
 
 infix operator <-> { precedence 130 associativity left }
 
-func <-><T>(property: ControlProperty<T>, variable: Variable<T>) -> Disposable {
-  let variableToProperty = variable.asObservable().bindTo(property)
+func <-><T: Comparable>(property: ControlProperty<T>, variable: Variable<T>) -> Disposable {
+  let variableToProperty = variable.asObservable()
+    .distinctUntilChanged()
+    .bindTo(property)
   
-  let propertyToVariable = property.subscribe(
-    onNext: { variable.value = $0 },
-    onCompleted: { variableToProperty.dispose() }
-  )
+  let propertyToVariable = property
+    .distinctUntilChanged()
+    .bindTo(variable)
   
   return StableCompositeDisposable.create(variableToProperty, propertyToVariable)
 }
 
 func <-><T: Comparable>(left: Variable<T>, right: Variable<T>) -> Disposable {
-  let leftDrivesRight = left.asDriver()
+  let leftToRight = left.asObservable()
     .distinctUntilChanged()
-    .driveNext {
-    right.value = $0
-  }
+    .bindTo(right)
   
-  let leftObservesRight = right.asObservable()
+  let rightToLeft = right.asObservable()
     .distinctUntilChanged()
-    .bindNext {
-    left.value = $0
-  }
+    .bindTo(left)
   
-  return StableCompositeDisposable.create(leftDrivesRight, leftObservesRight)
+  return StableCompositeDisposable.create(leftToRight, rightToLeft)
 }
 
 class TwoWayBindingViewControllerViewModel {
