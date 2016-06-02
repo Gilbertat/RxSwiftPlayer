@@ -8,4 +8,20 @@
 
 import UIKit
 
-class Button: UIButton { }
+class Button: UIButton {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configure()
+    }
+    
+    func configure() {
+        layer.cornerRadius = 5.0
+    }
+    
+}

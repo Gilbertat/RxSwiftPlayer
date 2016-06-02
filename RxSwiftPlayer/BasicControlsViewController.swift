@@ -18,9 +18,9 @@ class BasicControlsViewController: UIViewController {
   @IBOutlet weak var tapGestureRecognizer: UITapGestureRecognizer!
   @IBOutlet weak var textField: UITextField!
   @IBOutlet weak var textFieldLabel: UILabel!
-  @IBOutlet weak var textView: UITextView!
+  @IBOutlet weak var textView: TextView!
   @IBOutlet weak var textViewLabel: UILabel!
-  @IBOutlet weak var button: UIButton!
+  @IBOutlet weak var button: Button!
   @IBOutlet weak var buttonLabel: UILabel!
   @IBOutlet weak var segmentedControl: UISegmentedControl!
   @IBOutlet weak var segmentedControlLabel: UILabel!
@@ -55,8 +55,6 @@ class BasicControlsViewController: UIViewController {
     navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
     navigationItem.leftItemsSupplementBackButton = true
     
-    button.layer.cornerRadius = 5.0
-    
     textField.rx_text.asDriver()
       .drive(textFieldLabel.rx_text)
       .addDisposableTo(disposeBag)
@@ -68,8 +66,7 @@ class BasicControlsViewController: UIViewController {
     
     textView.rx_text.asDriver()
       .driveNext { [weak self] in
-        self?.textViewLabel.text = "Character count: \($0.characters.count)"
-        UIView.animateWithDuration(0.3) { self?.view.layoutIfNeeded() }
+        self?.textViewLabel.rx_text.onNext("Character count: \($0.characters.count)")
       }.addDisposableTo(disposeBag)
     
     button.rx_tap.asDriver()
