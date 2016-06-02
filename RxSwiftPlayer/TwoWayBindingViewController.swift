@@ -12,34 +12,24 @@ import RxCocoa
 
 infix operator <-> { precedence 130 associativity left }
 
-func <-><T: Comparable>(property: ControlProperty<T>, variable: Variable<T>) -> Disposable {
+func <-><T>(property: ControlProperty<T>, variable: Variable<T>) -> Disposable {
   let variableToProperty = variable.asObservable()
-    .distinctUntilChanged()
     .bindTo(property)
   
   let propertyToVariable = property
-    .distinctUntilChanged()
-    .bindTo(variable)
+    .subscribe(onNext: {
+        variable.value = $0
+        }, onCompleted: {
+            variableToProperty.dispose()
+    })
   
   return StableCompositeDisposable.create(variableToProperty, propertyToVariable)
 }
 
-func <-><T: Comparable>(left: Variable<T>, right: Variable<T>) -> Disposable {
-  let leftToRight = left.asObservable()
-    .distinctUntilChanged()
-    .bindTo(right)
-  
-  let rightToLeft = right.asObservable()
-    .distinctUntilChanged()
-    .bindTo(left)
-  
-  return StableCompositeDisposable.create(leftToRight, rightToLeft)
-}
-
 class TwoWayBindingViewControllerViewModel {
   
-  var textFieldText = Variable<String>("Hello")
-  var textViewText = Variable<String>("Lorem ipsum dolor...")
+  var textFieldText = Variable("Hello")
+  var textViewText = Variable("Lorem ipsum dolor...")
   
 }
 
@@ -96,11 +86,9 @@ class TwoWayBindingViewController: UIViewController {
   }
   
   func bindViewModel() {
-    (leftTextField.rx_text <-> viewModel.textFieldText)
-      .addDisposableTo(disposeBag)
+    leftTextField.rx_text <-> viewModel.textFieldText
     
-    (rightTextField.rx_text <-> viewModel.textFieldText)
-      .addDisposableTo(disposeBag)
+    rightTextField.rx_text <-> viewModel.textFieldText
     
     button.rx_tap.asDriver()
       .driveNext { [weak self] in
