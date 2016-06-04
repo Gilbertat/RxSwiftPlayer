@@ -10,29 +10,29 @@ import UIKit
 import RxSwift
 
 class PresentedTextViewViewController: UIViewController, HasTwoWayBindingViewControllerViewModel {
-  
-  // MARK: - Outlets
-  
-  @IBOutlet weak var textView: UITextView!
-  
-  // MARK: - Properties
-  
-  // HasTwoWayBindingViewControllerViewModel
-  var viewModel: TwoWayBindingViewControllerViewModel!
-  
-  let disposeBag = DisposeBag()
     
-  // MARK: - View life cycle
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    // MARK: - Outlets
     
-    textView.becomeFirstResponder()
-    bindViewModel()
-  }
-  
-  func bindViewModel() {
-    (textView.rx_text <-> viewModel.textViewText).addDisposableTo(disposeBag)
-  }
-  
+    @IBOutlet weak var textView: UITextView!
+    
+    // MARK: - Properties
+    
+    // HasTwoWayBindingViewControllerViewModel
+    var viewModel: TwoWayBindingViewControllerViewModel!
+    
+    let disposeBag = DisposeBag()
+    
+    // MARK: - View life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        textView.becomeFirstResponder()
+        bindViewModel()
+    }
+    
+    func bindViewModel() {
+        (textView.rx_text <-> viewModel.textViewText).addDisposableTo(disposeBag)
+    }
+    
 }
