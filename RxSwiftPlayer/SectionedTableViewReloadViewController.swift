@@ -48,25 +48,24 @@ class SectionedTableViewReloadViewController: UIViewController {
         super.viewDidLoad()
         
         dataSource.configureCell = { _, tableView, indexPath, dataSourceItem in
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel!.text = dataSourceItem.rawValue
             return cell
         }
         
         data.asDriver()
-            .drive(tableView.rx_itemsWithDataSource(dataSource))
+        .drive(tableView.rx.items(dataSource: dataSource))
             .addDisposableTo(disposeBag)
         
         dataSource.titleForHeaderInSection = {
-            $0.sectionAtIndex($1).model
+            $0[$1].model
         }
         
-        addBarButtonItem.rx_tap.asDriver()
-            .driveNext { [weak self] _ in
+        addBarButtonItem.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
                 guard let strongSelf = self else { return }
                 strongSelf.data.value += [SectionModel(model: "Section \(strongSelf.data.value.count + 1)", items: ReloadDataSource.allValues)]
-            }
-            .addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
     
 }

@@ -41,10 +41,10 @@ class BasicControlsViewController: UIViewController {
     let disposeBag = DisposeBag()
     var skip = 1
     
-    lazy var dateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .MediumStyle
-        formatter.timeStyle = .ShortStyle
+    lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
         return formatter
     }()
     
@@ -52,100 +52,100 @@ class BasicControlsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
         
-        textField.rx_text.asDriver()
-            .drive(textFieldLabel.rx_text)
+        textField.rx.text.asDriver()
+            .drive(textFieldLabel.rx.text)
             .addDisposableTo(disposeBag)
         
-        textField.rx_text.asDriver()
-            .driveNext { [weak self] _ in
-                UIView.animateWithDuration(0.3) { self?.view.layoutIfNeeded() }
-            }.addDisposableTo(disposeBag)
+        textField.rx.text.asDriver()
+            .drive(onNext: { [weak self] _ in
+                UIView.animate(withDuration: 0.3) { self?.view.layoutIfNeeded() }
+            }).addDisposableTo(disposeBag)
+                    
+        textView.rx.text.asDriver()
+            .drive(onNext: { [weak self] in
+                self?.textViewLabel.rx.text.onNext("Character count: \($0?.characters.count)")
+            }).addDisposableTo(disposeBag)
         
-        textView.rx_text.asDriver()
-            .driveNext { [weak self] in
-                self?.textViewLabel.rx_text.onNext("Character count: \($0.characters.count)")
-            }.addDisposableTo(disposeBag)
-        
-        button.rx_tap.asDriver()
-            .driveNext { [weak self] _ in
+        button.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
                 self?.buttonLabel.text! += "Tapped. "
                 self?.view.endEditing(true)
-                UIView.animateWithDuration(0.3) { self?.view.layoutIfNeeded() }
-            }.addDisposableTo(disposeBag)
+                UIView.animate(withDuration: 0.3) { self?.view.layoutIfNeeded() }
+            }).addDisposableTo(disposeBag)
         
-        segmentedControl.rx_value.asDriver()
+        segmentedControl.rx.value.asDriver()
             .skip(skip)
-            .driveNext { [weak self] in
+            .drive(onNext: { [weak self] in
                 self?.segmentedControlLabel.text = "Selected segment: \($0)"
-                UIView.animateWithDuration(0.3) { self?.view.layoutIfNeeded() }
-            }.addDisposableTo(disposeBag)
+                UIView.animate(withDuration: 0.3) { self?.view.layoutIfNeeded() }
+            }).addDisposableTo(disposeBag)
         
-        slider.rx_value.asDriver()
-            .driveNext { [weak self] in
+        slider.rx.value.asDriver()
+            .drive(onNext: { [weak self] in
                 self?.sliderLabel.text = "Slider value: \($0)"
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
-        slider.rx_value.asDriver()
-            .driveNext { [weak self] in
+        slider.rx.value.asDriver()
+            .drive(onNext: { [weak self] in
                 self?.progressView.progress = $0
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
-        `switch`.rx_value.asDriver()
+        `switch`.rx.value.asDriver()
             .map { !$0 }
-            .drive(activityIndicator.rx_hidden)
+            .drive(activityIndicator.rx.isHidden)
             .addDisposableTo(disposeBag)
         
-        `switch`.rx_value.asDriver()
-            .drive(activityIndicator.rx_animating)
+        `switch`.rx.value.asDriver()
+            .drive(activityIndicator.rx.isAnimating)
             .addDisposableTo(disposeBag)
         
-        stepper.rx_value.asDriver()
+        stepper.rx.value.asDriver()
             .map { String(Int($0)) }
-            .driveNext { [weak self] in
+            .drive(onNext: { [weak self] in
                 self?.stepperLabel.text = $0
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
-        tapGestureRecognizer.rx_event.asDriver()
-            .driveNext { [weak self] _ in
+        tapGestureRecognizer.rx.event.asDriver()
+            .drive(onNext: { [weak self] _ in
                 self?.view.endEditing(true)
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
-        datePicker.rx_date.asDriver()
+        datePicker.rx.date.asDriver()
             .map { [weak self] in
-                self?.dateFormatter.stringFromDate($0) ?? ""
+                self?.dateFormatter.string(from: $0) ?? ""
             }
-            .driveNext { [weak self] in
+            .drive(onNext: { [weak self] in
                 self?.datePickerLabel.text = "Selected date: \($0)"
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
         
-        resetBarButtonItem.rx_tap.asDriver()
-            .driveNext { [weak self] _ in
+        resetBarButtonItem.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                self.textField.rx_text.onNext("")
+                self.textField.rx.text.onNext("")
                 
-                self.textView.rx_text.onNext("Text view")
+                self.textView.rx.text.onNext("Text view")
                 
-                self.buttonLabel.rx_text.onNext("")
+                self.buttonLabel.rx.text.onNext("")
                 
                 self.skip = 0
-                self.segmentedControl.rx_value.onNext(-1)
+                self.segmentedControl.rx.value.onNext(-1)
                 self.segmentedControlLabel.text = ""
                 
-                self.slider.rx_value.onNext(0.5)
+                self.slider.rx.value.onNext(0.5)
                 
-                self.`switch`.rx_value.onNext(false)
+                self.`switch`.rx.value.onNext(false)
                 
-                self.stepper.rx_value.onNext(0.0)
+                self.stepper.rx.value.onNext(0.0)
                 
-                self.datePicker.setDate(NSDate(), animated: true)
-                
-                self.valueChangedControls.forEach { $0.sendActionsForControlEvents(.ValueChanged) }
+                self.datePicker.setDate(Date(), animated: true)
+                                
+                self.valueChangedControls.forEach { $0.sendActions(for: .valueChanged) }
                 self.view.endEditing(true)
-                UIView.animateWithDuration(0.3) { self.view.layoutIfNeeded() }
-            }.addDisposableTo(disposeBag)
+                UIView.animate(withDuration: 0.3) { self.view.layoutIfNeeded() }
+            }).addDisposableTo(disposeBag)
     }
     
 }

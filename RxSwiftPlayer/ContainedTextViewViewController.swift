@@ -25,13 +25,13 @@ class ContainedTextViewViewController: UIViewController, HasTwoWayBindingViewCon
     
     // MARK: - View life cycle
     
-    override func didMoveToParentViewController(parent: UIViewController?) {
-        guard let controller = parent?.parentViewController as? TwoWayBindingViewController else { return }
+    override func didMove(toParentViewController parent: UIViewController?) {
+        guard let controller = parent?.parent as? TwoWayBindingViewController else { return }
         
-        expandBarButtonItem.rx_tap.asDriver()
-            .driveNext { [weak self] _ in
-                controller.performSegueWithIdentifier("PresentedTextViewViewController", sender: self?.expandBarButtonItem)
-            }.addDisposableTo(disposeBag)
+        expandBarButtonItem.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
+                controller.performSegue(withIdentifier: "PresentedTextViewViewController", sender: self?.expandBarButtonItem)
+            }).addDisposableTo(disposeBag)
     }
     
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class ContainedTextViewViewController: UIViewController, HasTwoWayBindingViewCon
     }
     
     func bindViewModel() {
-        textView.rx_text <-> viewModel.textViewText
+        textView.rx.text <-> viewModel.textViewText
     }
     
 }

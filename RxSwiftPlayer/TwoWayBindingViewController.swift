@@ -10,26 +10,25 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-infix operator <-> { precedence 130 associativity left }
+infix operator <->
 
-func <-><T>(property: ControlProperty<T>, variable: Variable<T>) -> Disposable {
+@discardableResult func <-><T>(property: ControlProperty<T>, variable: Variable<T>) -> Disposable {
     let variableToProperty = variable.asObservable()
         .bindTo(property)
     
     let propertyToVariable = property
-        .subscribe(onNext: {
-            variable.value = $0
-            }, onCompleted: {
-                variableToProperty.dispose()
-        })
+        .subscribe(
+            onNext: { variable.value = $0 },
+            onCompleted: { variableToProperty.dispose() }
+    )
     
-    return StableCompositeDisposable.create(variableToProperty, propertyToVariable)
+    return Disposables.create(variableToProperty, propertyToVariable)
 }
 
 class TwoWayBindingViewControllerViewModel {
     
-    var textFieldText = Variable("Hello")
-    var textViewText = Variable("Lorem ipsum dolor...")
+    var textFieldText: Variable<String?> = Variable("Hello")
+    var textViewText: Variable<String?> = Variable("Lorem ipsum dolor...")
     
 }
 
@@ -62,25 +61,25 @@ class TwoWayBindingViewController: UIViewController {
         configure()
         bindViewModel()
         
-        tapGestureRecognizer.rx_event.asDriver()
-            .driveNext { [weak self] _ in
+        tapGestureRecognizer.rx.event.asDriver()
+            .drive(onNext: { [weak self] _ in
                 self?.view.endEditing(true)
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let controller = (segue.destinationViewController as? UINavigationController)?.topViewController as? HasTwoWayBindingViewControllerViewModel else { return }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let controller = (segue.destination as? UINavigationController)?.topViewController as? HasTwoWayBindingViewControllerViewModel else { return }
         controller.viewModel = viewModel
     }
     
     // MARK: - Actions
     
-    @IBAction func unwindToTwoWayBindingViewController(segue: UIStoryboardSegue) { }
+    @IBAction func unwindToTwoWayBindingViewController(_ segue: UIStoryboardSegue) { }
     
     // MARK: - Helpers
     
     func configure() {
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
         
         button.layer.cornerRadius = 5.0
@@ -88,24 +87,24 @@ class TwoWayBindingViewController: UIViewController {
         containerView.layer.masksToBounds = true
         containerView.layer.cornerRadius = 5.0
         containerView.layer.borderWidth = 0.5
-        containerView.layer.borderColor = UIColor(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1.0).CGColor
+        containerView.layer.borderColor = UIColor(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1.0).cgColor
     }
     
     func bindViewModel() {
-        leftTextField.rx_text <-> viewModel.textFieldText
+        leftTextField.rx.text <-> viewModel.textFieldText
         
-        rightTextField.rx_text <-> viewModel.textFieldText
+        rightTextField.rx.text <-> viewModel.textFieldText
         
-        button.rx_tap.asDriver()
-            .driveNext { [weak self] in
-                self?.viewModel.textFieldText.value = String(NSDate())
-            }.addDisposableTo(disposeBag)
+        button.rx.tap.asDriver()
+            .drive(onNext: { [weak self] in
+                self?.viewModel.textFieldText.value = "\(Date())"
+            }).addDisposableTo(disposeBag)
         
-        resetBarButtonItem.rx_tap.asDriver()
-            .driveNext { [weak self] _ in
+        resetBarButtonItem.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
                 self?.viewModel.textFieldText.value = "Hello"
                 self?.viewModel.textViewText.value = "Lorem ipsum dolor..."
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
     
 }

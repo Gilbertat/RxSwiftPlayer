@@ -41,35 +41,35 @@ class ExamplesViewController: UIViewController {
         
         splitViewController?.delegate = self
         
-        dataSource.bindTo(tableView.rx_itemsWithCellIdentifier("Cell")) { row, element, cell in
+        dataSource.bindTo(tableView.rx.items(cellIdentifier: "Cell")) { row, element, cell in
             cell.textLabel?.text = element.rawValue
-            }.addDisposableTo(disposeBag)
+        }.addDisposableTo(disposeBag)
         
-        tableView.rx_modelSelected(DataSource)
-            //      .distinctUntilChanged()
-            .map { String($0) }
-            .subscribeNext { [weak self] in
+        tableView.rx.modelSelected(DataSource.self)
+//            .distinctUntilChanged()
+            .map { "\($0)" }
+            .subscribe(onNext: { [weak self] in
                 
-                //        if NSProcessInfo.processInfo().environment["TRACE_RESOURCES"] != nil {
-                //          print(RxSwift.resourceCount)
-                //        }
+                if ProcessInfo.processInfo.environment["TRACE_RESOURCES"] != nil {
+                    print(RxSwift.Resources.total)
+                }
                 
-                self?.performSegueWithIdentifier($0, sender: nil)
+                self?.performSegue(withIdentifier: $0, sender: nil)
                 self?.collapseDetailViewController = false
-            }.addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
-        tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
+        tableView.deselectRow(at: indexPathForSelectedRow, animated: true)
     }
     
 }
 
 extension ExamplesViewController: UISplitViewControllerDelegate {
     
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return collapseDetailViewController
     }
     

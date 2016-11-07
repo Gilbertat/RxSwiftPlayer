@@ -10,14 +10,6 @@ import UIKit
 import RxSwift
 import RxDataSources
 
-extension String: IdentifiableType {
-    
-    public typealias Identity = String
-    
-    public var identity: Identity { return self }
-    
-}
-
 struct AnimatedSectionModel {
     
     let title: String
@@ -63,26 +55,25 @@ class SectionedTableViewAnimatedViewController: UIViewController {
         super.viewDidLoad()
         
         dataSource.configureCell = { _, tableView, indexPath, item in
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel!.text = item
             return cell
         }
         
         data.asDriver()
-            .drive(tableView.rx_itemsWithDataSource(dataSource))
+            .drive(tableView.rx.items(dataSource: dataSource))
             .addDisposableTo(disposeBag)
         
         dataSource.titleForHeaderInSection = {
-            $0.sectionAtIndex($1).title
+            $0[$1].title
         }
         
-        addBarButtonItem.rx_tap.asDriver()
-            .driveNext { [weak self] _ in
+        addBarButtonItem.rx.tap.asDriver()
+            .drive(onNext: { [weak self] _ in
                 guard let strongSelf = self else { return }
                 let index = strongSelf.data.value.count + 1
                 strongSelf.data.value += [AnimatedSectionModel(title: "Section \(index)", dataSourceItems: ["Sample Data \(index)-1", "Sample Data \(index)-2"])]
-            }
-            .addDisposableTo(disposeBag)
+            }).addDisposableTo(disposeBag)
     }
     
 }
