@@ -43,6 +43,7 @@ class TwoWayBindingViewController: UIViewController {
     
     // MARK: - Outlets
     
+    @IBOutlet var tapGestureRecognizer: UITapGestureRecognizer!
     @IBOutlet weak var resetBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var leftTextField: UITextField!
     @IBOutlet weak var rightTextField: UITextField!
@@ -60,10 +61,15 @@ class TwoWayBindingViewController: UIViewController {
         super.viewDidLoad()
         configure()
         bindViewModel()
+        
+        tapGestureRecognizer.rx_event.asDriver()
+            .driveNext { [weak self] _ in
+                self?.view.endEditing(true)
+            }.addDisposableTo(disposeBag)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let  controller = (segue.destinationViewController as? UINavigationController)?.topViewController as? HasTwoWayBindingViewControllerViewModel else { return }
+        guard let controller = (segue.destinationViewController as? UINavigationController)?.topViewController as? HasTwoWayBindingViewControllerViewModel else { return }
         controller.viewModel = viewModel
     }
     
